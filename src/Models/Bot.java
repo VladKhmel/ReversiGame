@@ -1,10 +1,11 @@
 package Models;
+
 import java.util.ArrayList;
 
-public class Bot extends Player{
+public class Bot extends Player {
 
     public Bot(Field field, Chip color) {
-        this.color= color;
+        this.color = color;
         this.field = field;
     }
 
@@ -12,7 +13,7 @@ public class Bot extends Player{
         ArrayList<Coordinate> availableMoves = field.availableMoves.get(color);
         double maxTurnValue = 0;
         double turnValue = 0;
-        Coordinate bestTurn = new Coordinate(0,0);
+        Coordinate bestTurn = new Coordinate(0, 0);
         for (Coordinate chip : availableMoves) {
             turnValue = field.getPositionValue(chip);
             for (int i = -1; i <= 1; i++) {
@@ -35,11 +36,11 @@ public class Bot extends Player{
                     }
                 }
             }
-            if(maxTurnValue<turnValue){
-                maxTurnValue=turnValue;
-                bestTurn=new Coordinate(chip.x,chip.y);
+            if (maxTurnValue < turnValue) {
+                maxTurnValue = turnValue;
+                bestTurn = new Coordinate(chip.x, chip.y);
             }
         }
-    return bestTurn;
+        return bestTurn;
     }
 }

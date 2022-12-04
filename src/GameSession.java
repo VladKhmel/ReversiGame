@@ -7,53 +7,55 @@ import Models.Field;
 import Models.HumanPlayer;
 
 public class GameSession {
-    private int bestScore=0;
-    void startSession(){
+    private int bestScore = 0;
+
+    /**
+     * Запускает основной ход программы, который состоит в ожидании и исполнении команд пользователя
+     */
+    void startSession() {
         InterfaceView.printStartingInfo();
         InterfaceView.printInfoAboutCommands();
         Commands command;
-        while (true){
-            try{
-                command= ConsoleInput.commandInput();
+        while (true) {
+            try {
+                command = ConsoleInput.commandInput();
                 break;
-            }
-            catch (IllegalArgumentException e){
+            } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }
-        while (command!=Commands.End){
+        while (command != Commands.End) {
             executeCommand(command);
             InterfaceView.printInfoAboutCommands();
-            while (true){
-                try{
-                    command= ConsoleInput.commandInput();
+            while (true) {
+                try {
+                    command = ConsoleInput.commandInput();
                     break;
-                }
-                catch (IllegalArgumentException e){
+                } catch (IllegalArgumentException e) {
                     System.out.println(e.getMessage());
                 }
             }
         }
     }
 
-    void executeCommand(Commands command){
-        if(command==Commands.PVP){
+    void executeCommand(Commands command) {
+        if (command == Commands.PVP) {
             Field field = new Field();
-            Game game = new Game(field,new HumanPlayer(field, Chip.White),new HumanPlayer(field,Chip.White));
+            Game game = new Game(field, new HumanPlayer(field, Chip.White), new HumanPlayer(field, Chip.White));
             int gameScore = game.GameProcess();
-            if(gameScore>bestScore){
-                bestScore=gameScore;
+            if (gameScore > bestScore) {
+                bestScore = gameScore;
             }
         }
-        if(command==Commands.PVE){
+        if (command == Commands.PVE) {
             Field field = new Field();
-            Game game = new Game(field,new HumanPlayer(field,Chip.White),new Bot(field,Chip.Black));
+            Game game = new Game(field, new HumanPlayer(field, Chip.White), new Bot(field, Chip.Black));
             int gameScore = game.GameProcess();
-            if(gameScore>bestScore){
-                bestScore=gameScore;
+            if (gameScore > bestScore) {
+                bestScore = gameScore;
             }
         }
-        if(command==Commands.Score){
+        if (command == Commands.Score) {
             System.out.println(bestScore);
         }
     }

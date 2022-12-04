@@ -1,4 +1,5 @@
 package IO;
+
 public class InterfaceView {
     public static void printStartingInfo() {
         System.out.println("\uD83C\uDF11\uD83C\uDF12\uD83C\uDF13РЕВЕРСИ\uD83C\uDF13\uD83C\uDF14\uD83C\uDF15");
@@ -9,6 +10,7 @@ public class InterfaceView {
                 " вражеская фишка перекраситься в ваш цвет. Чтобы упростить игру, все возможные ходы подсвечены синим цветом. Пора начинать!");
 
     }
+
     public static void printInfoAboutCommands() {
         System.out.print(System.lineSeparator());
         System.out.println("Чтобы начать, введите команду:");

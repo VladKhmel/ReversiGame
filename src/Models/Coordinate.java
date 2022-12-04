@@ -1,4 +1,5 @@
 package Models;
+
 import java.util.Objects;
 
 public class Coordinate {
@@ -27,6 +28,7 @@ public class Coordinate {
         Coordinate coordinate = (Coordinate) o;
         return x == coordinate.x && y == coordinate.y;
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(x, y);

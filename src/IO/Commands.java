@@ -1,6 +1,6 @@
 package IO;
 
-public enum Commands{
+public enum Commands {
     PVP,
     PVE,
     Score,

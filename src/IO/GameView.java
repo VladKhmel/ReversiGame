@@ -11,6 +11,11 @@ public class GameView {
         this.field = field;
     }
 
+    /**
+     * Метод для отрисовки игровой доски
+     *
+     * @param color - цвет, для которого будут отображаться подсказки в виде подсветки возможных ходов
+     */
     public void boardViewFromPlayerColor(Chip color) {
         System.out.println("    A B C D  E F G H");
         for (int i = 0; i < field.board.length; i++) {
@@ -37,19 +42,19 @@ public class GameView {
 
         }
         System.out.print("Текущий игрок: ");
-        System.out.println(color == Chip.White?"\uD83C\uDF15" :"\uD83C\uDF11");
+        System.out.println(color == Chip.White ? "\uD83C\uDF15" : "\uD83C\uDF11");
     }
 
     public void scorePrint(int firstPlayerScore, int secondPlayerScore) {
-        System.out.println("Игра окончена!"+System.lineSeparator());
+        System.out.println("Игра окончена!" + System.lineSeparator());
         System.out.println("Финальный счет:");
-        System.out.println("\uD83C\uDF15Первый игрок: " +firstPlayerScore);
-        System.out.println("\uD83C\uDF11Второй игрок: " +secondPlayerScore);
-        if(firstPlayerScore>secondPlayerScore){
+        System.out.println("\uD83C\uDF15Первый игрок: " + firstPlayerScore);
+        System.out.println("\uD83C\uDF11Второй игрок: " + secondPlayerScore);
+        if (firstPlayerScore > secondPlayerScore) {
             System.out.println("\uD83C\uDF15Победитель - первый игрок!\uD83C\uDF15");
-        } else if(firstPlayerScore<secondPlayerScore){
+        } else if (firstPlayerScore < secondPlayerScore) {
             System.out.println("\uD83C\uDF11Победитель - второй игрок!\uD83C\uDF11");
-        } else{
+        } else {
             System.out.println("\uD83C\uDF17Ничья!\uD83C\uDF13");
         }
 

@@ -5,8 +5,9 @@ import IO.ConsoleInput;
 public class HumanPlayer extends Player {
     public HumanPlayer(Field field, Chip color) {
         this.field = field;
-        this.color= color;
+        this.color = color;
     }
+
     public Coordinate makeMove() {
         String maidenMove;
         while (true) {

@@ -14,22 +14,27 @@ public class Game {
     Chip currentColor;
 
     Game(Field field, Player first, Player second) {
-        this.field=field;
+        this.field = field;
         view = new GameView(field);
         firstPlayer = first;
         secondPlayer = second;
-        currentPlayer=firstPlayer;
-        currentColor=Chip.White;
+        currentPlayer = firstPlayer;
+        currentColor = Chip.White;
     }
 
+    /**
+     * запускает основной ход игры, где игроки поочередно вводят свои ходы
+     *
+     * @return возвращает лучший счет, полученный в этой игре
+     */
     public int GameProcess() {
         do {
             view.boardViewFromPlayerColor(currentColor);
-            while (true){
+            while (true) {
                 try {
                     field.addChipOnBoard(currentPlayer.makeMove(), currentColor);
                     break;
-                } catch (IllegalArgumentException e){
+                } catch (IllegalArgumentException e) {
                     System.out.println(e.getMessage());
                 }
             }
@@ -39,13 +44,15 @@ public class Game {
             }
         } while (!isFinished());
 
-
         view.boardViewFromPlayerColor(currentColor);
         view.scorePrint(field.getScore(Chip.White), field.getScore(Chip.Black));
         return getBestScore();
 
     }
 
+    /**
+     * @return возвращает счет игрока, если противник - бот, или наибольший счеит, елси оба игрока - люди
+     */
     private int getBestScore() {
         if (secondPlayer instanceof Bot) {
             return field.getScore(Chip.White);

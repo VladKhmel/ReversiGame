@@ -1,4 +1,5 @@
 package Models;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -7,7 +8,7 @@ import java.util.Map;
 public class Field {
 
     public Chip[][] board = new Chip[8][8];
-    public Map<Chip, ArrayList<Coordinate>> availableMoves= new HashMap<>();
+    public Map<Chip, ArrayList<Coordinate>> availableMoves = new HashMap<>();
 
     public Field() {
         for (Chip[] chips : board) {
@@ -20,7 +21,12 @@ public class Field {
         updateAvailableMoves();
     }
 
-
+    /**
+     * Добавляет фишку на поле, если по правилам игры это разрешено, обновляет возможные ходы для игроков по итогу добавления
+     *
+     * @param coordinate координаты поля, в которое надо добавить фишку
+     * @param chip       цвет добавляемой фишки
+     */
     public void addChipOnBoard(Coordinate coordinate, Chip chip) {
         board[coordinate.x][coordinate.y] = chip;
         if (availableMoves.get(chip).contains(coordinate)) {
@@ -31,6 +37,9 @@ public class Field {
         updateAvailableMoves();
     }
 
+    /**
+     * обновление списка возможных ходов для обоих игроков
+     */
     private void updateAvailableMoves() {
         ArrayList<Coordinate> availableWhiteMoves = new ArrayList<>();
         ArrayList<Coordinate> availableBlackMoves = new ArrayList<>();
@@ -48,7 +57,14 @@ public class Field {
         availableMoves.put(Chip.Black, availableBlackMoves);
     }
 
-
+    /**
+     * проверка на то, перекрашивает ли ход вражеские фишки. По правилам игры ход ОБЯЗАН перекрасить хоть одну
+     *
+     * @param x     координата хода
+     * @param y     координата хода
+     * @param color цвет фишки, для которой идет проверка
+     * @return true - если перекрашивает, false если нет
+     */
     private boolean isChipRecoloringEnemy(int x, int y, Chip color) {
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
@@ -72,6 +88,14 @@ public class Field {
         return false;
     }
 
+    /**
+     * проверяет, есть ли около передаваемой позиции фишки определенного цвета
+     *
+     * @param x     - координата позиции
+     * @param y     - координата позиции
+     * @param color цвет, который проверяем
+     * @return
+     */
     private boolean isColorNearChip(int x, int y, Chip color) {
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
@@ -87,6 +111,12 @@ public class Field {
         return x >= 0 && x < board.length && y >= 0 && y < board.length;
     }
 
+    /**
+     * перекрашивает поле после выставления фишечки
+     *
+     * @param x - координата фишки, от которой необходимо перекрасить поле
+     * @param y - координата фишки, от которой необходимо перекрасить поле
+     */
     void recolorBoard(int x, int y) {
         Chip currentColor = board[x][y];
         for (int i = -1; i <= 1; i++) {
@@ -112,6 +142,13 @@ public class Field {
         }
     }
 
+    /**
+     * Считает ценность перекрашивания данной фишки для алгоритма выбора хода у бота
+     *
+     * @param x - координаты фишки
+     * @param y - координаты фишки
+     * @return ценность фишки
+     */
     public int getRecoloredChipValue(int x, int y) {
         if (x == 0 || y == 0 || x == board.length - 1 || y == board.length - 1) {
             return 2;
@@ -119,6 +156,12 @@ public class Field {
         return 1;
     }
 
+    /**
+     * Считает ценность постановки данной фишки для алгоритма выбора хода у бота
+     *
+     * @param chip координаты фишки
+     * @return ценность фишки
+     */
     public double getPositionValue(Coordinate chip) {
         if ((chip.x == 0 || chip.x == board.length) && (chip.y == 0 || chip.y == board.length)) {
             return 0.8;
